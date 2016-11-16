@@ -23,8 +23,10 @@ def upload_file():
         file = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
+
         if file.filename == '':
             flash('No selected file')
+
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -50,5 +52,6 @@ def uploaded_file(filename):
 
 
 if __name__ == '__main__':
+    app.secret_key = os.urandom(24)
     app.run()
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>JS Bin</title>
+
+</head>
+<body>
+
+  <input type="file" id="imageLoader" name="imageLoader"/>
+<canvas id="imageCanvas"></canvas>
+
+
+<input type="text" name="Fname" id="words"/> <button id="entertext">Enter</button>
+
+
+  
+</body>
+<script>
+var imageLoader = document.getElementById('imageLoader');
+    imageLoader.addEventListener('change', handleImage, false);
+var canvas = document.getElementById('imageCanvas');
+var ctx = canvas.getContext('2d');
+
+
+function handleImage(e){
+    var reader = new FileReader();
+    reader.onload = function(event){
+        var img = new Image();
+        img.onload = function(){
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img,0,0);
+            var tf1 = document.getElementsByName('Fname')[0].value
+
+            ctx.font="20px Georgia";
+            ctx.fillText(tf1,200,50);
+        }
+        img.src = event.target.result;
+
+
+    }
+    reader.readAsDataURL(e.target.files[0]);     
+}
+
+
+$('#entertext').click(function(){
+    ctx.fillText($("#words").val(), x, y);
+});
+    
+
+
+
+
+
+
+</script>
+
+</html>

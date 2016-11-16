@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<!--code referenced from http://stackoverflow.com/questions/12368910/html-display-image-after-selecting-filename -->
+
+<head>
+<link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+<meta charset=utf-8 />
+<title>Memes</title>
+
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<style>
+  article, aside, figure, footer, header, hgroup, 
+  menu, nav, section { display: block; }
+</style>
+</head>
+<body>
+
+  <canvas id="myCanvas" width="500" height="500" style="border:1px solid blue;" onchange="readURL(this);">
+</canvas>
+
+  <input type='file' onchange="readURL(this);" />
+    <img id="blah" src="#" alt="your image" />
+</body>
+  <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var imageObj = new Image();
+
+            reader.onload = function (e) {
+             
+                context.drawImage(e.target.result, 69, 50);
+                   // .attr('src', e.target.result)
+                    //.width(500)
+                    //.height(500);
+            };
+
+           // reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+
+    
+
+    //imageObj.onload = function(){
+      
+    //};
+
+   // imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
+
+  
+   </script>
+
+
+</html>
