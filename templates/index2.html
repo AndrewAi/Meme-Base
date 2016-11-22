@@ -30,11 +30,12 @@ function handleImage(e){
         img.onload = function(){
             canvas.width = img.width;
             canvas.height = img.height;
-            ctx.drawImage(img,0,0);
+            ctx.drawImage(img,0,0,250,277);
             var tf1 = document.getElementsByName('Fname')[0].value
 
             ctx.font="20px Georgia";
-            ctx.fillText(tf1,200,50);
+            ctx.fillText("Meme Text 1",70,50);
+            ctx.fillText("Meme Text 2", 70, 240);
         }
         img.src = event.target.result;
 
