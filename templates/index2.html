@@ -2,16 +2,29 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<title>JS Bin</title>
+<title>Meme</title>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </head>
 <body>
 
   <input type="file" id="imageLoader" name="imageLoader"/>
-<canvas id="imageCanvas"></canvas>
+<canvas id="imageCanvas" width="300" height="300" style="border:1px solid"></canvas>
 
 
 <input type="text" name="Fname" id="words"/> <button id="entertext">Enter</button>
+
+<a id="download" download="Meme.png">Download as image</a>
 
 
   
@@ -28,27 +41,46 @@ function handleImage(e){
     reader.onload = function(event){
         var img = new Image();
         img.onload = function(){
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img,0,0,250,277);
+            //canvas.width = img.width;
+            //canvas.height = img.height;
+            ctx.drawImage(img,0,0,canvas.width,canvas.height);
             var tf1 = document.getElementsByName('Fname')[0].value
 
             ctx.font="20px Georgia";
-            ctx.fillText("Meme Text 1",70,50);
-            ctx.fillText("Meme Text 2", 70, 240);
+            //ctx.fillText("Meme Text 1",70,50);
+            //ctx.fillText("Meme Text 2", 70, 240);
         }
         img.src = event.target.result;
 
 
     }
-    reader.readAsDataURL(e.target.files[0]);     
+    reader.readAsDataURL(e.target.files[0]);
+
+      
 }
+
+//http://jsfiddle.net/epistemex/kyjs655r/
+
+function download(){
+
+    var dt = canvas.toDataURL();
+    this.href = dt; 
+}
+document.getElementById('download').addEventListener('click', download, false);
+
+
+
+    
+
 
 
 $('#entertext').click(function(){
-    ctx.fillText($("#words").val(), x, y);
+    ctx.fillText($("#words").val(), 70, 50);
 });
+
     
+
+
 
 
 
