@@ -3,18 +3,14 @@
 <head>
 <meta charset=utf-8 />
 <title>Meme</title>
-
+<!-- jquery -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
 </head>
 <body>
 
@@ -40,17 +36,20 @@ function handleImage(e){
     var reader = new FileReader();
     reader.onload = function(event){
         var img = new Image();
+        console.log("var img: " + img);
         img.onload = function(){
             //canvas.width = img.width;
             //canvas.height = img.height;
             ctx.drawImage(img,0,0,canvas.width,canvas.height);
-            var tf1 = document.getElementsByName('Fname')[0].value
+            //var tf1 = document.getElementsByName('Fname')[0].value
 
             ctx.font="20px Georgia";
             //ctx.fillText("Meme Text 1",70,50);
             //ctx.fillText("Meme Text 2", 70, 240);
         }
         img.src = event.target.result;
+        //console.log("img src: " + img.src);
+
 
 
     }
@@ -64,7 +63,9 @@ function handleImage(e){
 function download(){
 
     var dt = canvas.toDataURL();
+   // console.log("dt: " + dt)
     this.href = dt; 
+    //console.log("this.href: " + this.href);
 }
 document.getElementById('download').addEventListener('click', download, false);
 
