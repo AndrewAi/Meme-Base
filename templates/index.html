@@ -1,109 +1,214 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8 />
-<title>Meme</title>
-<!-- jquery -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <meta charset=utf-8/>
+    <title>Meme</title>
+
+
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- jquery -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
+<!--    <script src="{{ url_for('static', filename='js/form.js') }}"></script> -->
+
+
+
 </head>
 <body>
 
-    <h1> H1 </h1>
-    <h1> {{ doc }} </h1>
 
-  <input type="file" id="imageLoader" name="imageLoader"/>
+
+
+
+<h1> H1 </h1>
+<h1> {{ doc }} </h1>
+
+<input type="file" id="imageLoader" name="imageLoader"/>
 <canvas id="imageCanvas" width="300" height="300" style="border:1px solid"></canvas>
 
 
-<input type="text" name="Fname" id="words"/> <button id="entertext">Enter</button>
 
-    <h1>How old are you ?</h1>
-<form action="/send" method="POST">
+<input type="text" name="Fname" id="words"/>
+<button id="entertext">Enter</button>
+
+
+
+
+<form class="form-inline" id="form1">
+
+	   <div class="form-group">
+	    <label class="sr-only" for="emailInput">Email address</label>
+	    <input type="email" class="form-control" id="emailInput" placeholder="Email">
+	  </div>
+
+	  <div class="form-group">
+	    <label class="sr-only" for="nameInput">Name</label>
+	    <input type="text" class="form-control" id="nameInput" placeholder="First Name">
+	  </div>
+
+	  <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+
+	<br>
+	<div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+	<div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+
+
+
+
+
+
+
+
+<!--
+<h1>How old are you ?</h1>
+<form action="/signUp" method="POST">
     <div class="form-group">
+        <input type="text" name="username"/>
 
-
-    <input type="text" name="age"/>
-
-    <input class="btn btn-btn-primary" type="submit" name="submitbtn" value="submitval">
-
+        <input class="btn btn-btn-primary" type="submit" name="submitbtn" value="submitval">
     </div>
 
 
 </form>
+-->
 
 
 <a id="download" download="Meme.png">Download as image</a>
 
 
-  
 </body>
 <script>
-var imageLoader = document.getElementById('imageLoader');
+
+
+
+
+
+
+
+    var imageLoader = document.getElementById('imageLoader');
     imageLoader.addEventListener('change', handleImage, false);
-var canvas = document.getElementById('imageCanvas');
-var ctx = canvas.getContext('2d');
+    var canvas = document.getElementById('imageCanvas');
+    var ctx = canvas.getContext('2d');
 
 
-function handleImage(e){
-    var reader = new FileReader();
-    reader.onload = function(event){
-        var img = new Image();
-        console.log("var img: " + img);
-        img.onload = function(){
-            //canvas.width = img.width;
-            //canvas.height = img.height;
-            ctx.drawImage(img,0,0,canvas.width,canvas.height);
-            //var tf1 = document.getElementsByName('Fname')[0].value
 
-            ctx.font="20px Georgia";
-            //ctx.fillText("Meme Text 1",70,50);
-            //ctx.fillText("Meme Text 2", 70, 240);
+
+
+
+
+
+
+    function handleImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var img = new Image();
+            //console.log("var img: " + img);
+            img.onload = function () {
+                //canvas.width = img.width;
+                //canvas.height = img.height;
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                //var tf1 = document.getElementsByName('Fname')[0].value
+
+                ctx.font = "20px Georgia";
+                //ctx.fillText("Meme Text 1",70,50);
+                //ctx.fillText("Meme Text 2", 70, 240);
+            }
+            img.src = event.target.result;
+            //console.log("img src: " + img.src);
+
+
         }
-        img.src = event.target.result;
-        //console.log("img src: " + img.src);
-
+        reader.readAsDataURL(e.target.files[0]);
 
 
     }
-    reader.readAsDataURL(e.target.files[0]);
-
-      
-}
-
-//http://jsfiddle.net/epistemex/kyjs655r/
-
-function download(){
-
-    var dt = canvas.toDataURL();
-   // console.log("dt: " + dt)
-    this.href = dt; 
-    //console.log("this.href: " + this.href);
-}
-document.getElementById('download').addEventListener('click', download, false);
 
 
 
-    
 
 
 
-$('#entertext').click(function(){
-    ctx.fillText($("#words").val(), 70, 50);
+
+    //http://jsfiddle.net/epistemex/kyjs655r/
+    function download() {
+
+        //var dt = canvas.toDataURL();
+        //console.log("dt:", dt)
+
+         console.log("dt: " + dt)
+        this.href = dt;
+        //console.log("this.href: " + this.href);
+    }
+    document.getElementById('download').addEventListener('click', download, false);
+
+
+
+
+
+
+$('#form1').on('submit', function(event) {
+
+
+        //console.log("canvas:  ", canvas.toDataURL())
+       //formData = new FormData();
+       //data = canvas.toDataURL()
+     //formData.append('file', $( '#file' ),canvas.toDataURL());
+    var srcdata = canvas.toDataURL("image/png").replace(/^data:image\/(png|jpg);base64,/, '');
+
+
+
+   $.ajax({
+      data : {
+         name : $('#nameInput').val(),
+         email : $('#emailInput').val(),
+         data : srcdata
+
+      },
+      type : 'POST',
+      url : '/process'
+   })
+   .done(function(data) {
+
+      if (data.error) {
+         $('#errorAlert').text(data.error).show();
+         $('#successAlert').hide();
+      }
+      else {
+         $('#successAlert').text(data.name).show();
+         $('#errorAlert').hide();
+      }
+
+   });
+
+   event.preventDefault();
+
 });
 
-    
 
 
 
 
 
 
+
+
+    $('#entertext').click(function () {
+        ctx.fillText($("#words").val(), 70, 50);
+    });
 
 
 </script>
