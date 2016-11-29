@@ -38,10 +38,12 @@
 <input type="file" id="imageLoader" name="imageLoader"/>
 <canvas id="imageCanvas" width="300" height="300" style="border:1px solid"></canvas>
 
-
+<
 
 <input type="text" name="Fname" id="words"/>
 <button id="entertext">Enter</button>
+
+
 
 
 
@@ -58,12 +60,15 @@
 	    <input type="text" class="form-control" id="memeBaseNameInput" placeholder="Enter Meme Base Name">
 	  </div>
 
-	  <button type="submit" class="btn btn-default">Submit</button>
+	  <button type="submit" class="btn btn-default">Upload Meme!</button>
 	</form>
 
 	<br>
 	<div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
 	<div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+
+
+
 
 
 
@@ -89,6 +94,8 @@
     imageLoader.addEventListener('change', handleImage, false);
     var canvas = document.getElementById('imageCanvas');
     var ctx = canvas.getContext('2d');
+
+
 
 
 
@@ -157,7 +164,7 @@ $('#form1').on('submit', function(event) {
    $.ajax({
       data : {
          memeName : $('#memeNameInput').val(),
-         memeBaseName : $('#memeBaseNameInput1').val(),
+         memeBaseName : $('#memeBaseNameInput').val(),
          data : srcdata
 
       },

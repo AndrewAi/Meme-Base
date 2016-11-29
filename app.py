@@ -91,63 +91,7 @@ name = "abcasa"
 #"VGhpcyBpcyBhIGJhc2U2NCBlbmNvZGVkIHRleHQ="
 
 
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
-@app.route('/process', methods=['POST'])
-def process():
-    memeName = request.form['memeName']
-    memeBaseName = request.form['memeBaseName']
-    file = request.form['data']
-
-
-    if file:
-
-         print("file: ",file)
-         memeName += ".png"
-         print("memeName: ", memeName)
-         print("memeBaseName: ", memeBaseName)
-
-
-
-         jj = {
-             "_id": memeBaseName,
-             "_attachments":
-                 {
-                     memeName:
-                         {
-                             "content_type": "image/png",
-                             "data": file
-                         }
-                 }
-         }
-         requests.post('http://127.0.0.1:5984/test2/', data=None, json=jj)
-
-
-
-    return jsonify({'name': "Meme Uploaded"})
-
-
-
-
-@app.route('/imgurl/')
-def imgurl():
-    # img = "http://localhost:5984/test2/5b5b558c24f1cc3213ccd3214100c7ac" + f['key']
-
-
-
-    return render_template('imgurl.html')
-
-
-
-@app.route('/page3/', methods=['GET', 'POST'])
-def page3():
-
-    if request.method == 'POST':
-        
+'''
         #return redirect(url_for('imgurl'))
 
 
@@ -157,10 +101,10 @@ def page3():
         print('docNameUrl: ', docNameUrl)
         c = requests.get('http://127.0.0.1:5984/test2/' + docName)
 
-        if c:
+        if c:'''
 
 
-            parsed_json = json.loads(c.text)
+'''parsed_json = json.loads(c.text)
             print("parsed_json: ", parsed_json)
 
             e = parsed_json['_attachments']
@@ -174,11 +118,94 @@ def page3():
             print('imgName: ', imgName)
             imgLocation = 'http://127.0.0.1:5984/test2/' + docName + '/' + imgName
             print('imgLocation: ', imgLocation)
-            return render_template('imgurl.html')
+            return render_template('imgurl.html')'''
+
+
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/process', methods=['POST'])
+def process():
+
+    if request.method == 'POST':
+
+        memeName = request.form['memeName']
+        memeBaseName = request.form['memeBaseName']
+        file = request.form['data']
+
+
+
+        if file:
+
+             print("file: ",file)
+             memeName += ".png"
+             print("memeName: ", memeName)
+             print("memeBaseName: ", memeBaseName)
+
+
+
+             jj = {
+                 "_id": memeBaseName,
+                 "_attachments":
+                     {
+                         memeName:
+                             {
+                                 "content_type": "image/png",
+                                 "data": file
+                             }
+                     }
+             }
+             requests.post('http://127.0.0.1:5984/test2/', data=None, json=jj)
+             return jsonify({'name': "Meme Uploaded"})
+
+
+
+
+
+@app.route('/page3', methods=['GET', 'POST'])
+def page3():
+
+    if request.method == 'POST':
+
+        docName = request.form['memeBaseNameInput']
+        print("docName: ", docName)
+
+        docNameUrl = 'http://127.0.0.1:5984/test2/' + docName
+        print("docNameUrl: ", docNameUrl)
+
+        ca = requests.get(docNameUrl)
+        print("ca: ", ca.text)
+
+        if ca :
+            parsed_json = json.loads(ca.text)
+            print("parsed_json: ", parsed_json)
+
+            e = parsed_json['_attachments']
+            pop = e.keys()
+
+            for key in pop:
+                print('key: ', key)
+                imgName = key
+
+            print("imgName: ", imgName)
+            imglocation = 'http://127.0.0.1:5984/test2/' + docName + '/' + imgName
+
+            return redirect(url_for('imgurl', imglocation = imglocation))
+
+
+
 
     return render_template('page3.html')
 
 
+@app.route('/page5', methods=['GET', 'POST'])
+def page5():
+    if request.method == 'POST':
+        return redirect(url_for('index'))
 
 
 
@@ -188,6 +215,14 @@ def page3():
 
 
 
+@app.route('/imgurl')
+def imgurl():
+    #http://stackoverflow.com/questions/17057191/flask-redirect-while-passing-arguments
+    img = request.args['imglocation']
+
+    print("img: ", img)
+
+    return render_template('imgurl.html', img = img)
 
 
 
@@ -202,13 +237,13 @@ def send():
         return render_template('test.html', age=age)
 
 
-@app.route('/page/')
+@app.route('/page')
 def page():
     return ("Andrew Irwin")
     # return render_template('index.html')
 
 
-@app.route('/test/', methods=["GET", "POST"])
+@app.route('/test', methods=["GET", "POST"])
 def test():
     return render_template('test.html')
 
@@ -222,5 +257,4 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    SECRET_KEY = 'you-will-never-guess'
     app.run(debug=True)
