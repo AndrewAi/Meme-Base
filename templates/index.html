@@ -33,8 +33,7 @@
 
 
 
-<h1> H1 </h1>
-<h1> {{ doc }} </h1>
+
 
 <input type="file" id="imageLoader" name="imageLoader"/>
 <canvas id="imageCanvas" width="300" height="300" style="border:1px solid"></canvas>
@@ -50,13 +49,13 @@
 <form class="form-inline" id="form1">
 
 	   <div class="form-group">
-	    <label class="sr-only" for="emailInput">Email address</label>
-	    <input type="email" class="form-control" id="emailInput" placeholder="Email">
+	    <label class="sr-only" for="memeNameInput">Meme Name</label>
+	    <input type="text" class="form-control" id="memeNameInput" placeholder="Enter Meme Name">
 	  </div>
 
 	  <div class="form-group">
-	    <label class="sr-only" for="nameInput">Name</label>
-	    <input type="text" class="form-control" id="nameInput" placeholder="First Name">
+	    <label class="sr-only" for="memeBaseNameInput">Meme Base Name</label>
+	    <input type="text" class="form-control" id="memeBaseNameInput" placeholder="Enter Meme Base Name">
 	  </div>
 
 	  <button type="submit" class="btn btn-default">Submit</button>
@@ -72,19 +71,6 @@
 
 
 
-
-<!--
-<h1>How old are you ?</h1>
-<form action="/signUp" method="POST">
-    <div class="form-group">
-        <input type="text" name="username"/>
-
-        <input class="btn btn-btn-primary" type="submit" name="submitbtn" value="submitval">
-    </div>
-
-
-</form>
--->
 
 
 <a id="download" download="Meme.png">Download as image</a>
@@ -146,7 +132,7 @@
     //http://jsfiddle.net/epistemex/kyjs655r/
     function download() {
 
-        //var dt = canvas.toDataURL();
+        var dt = canvas.toDataURL();
         //console.log("dt:", dt)
 
          console.log("dt: " + dt)
@@ -163,18 +149,15 @@
 $('#form1').on('submit', function(event) {
 
 
-        //console.log("canvas:  ", canvas.toDataURL())
-       //formData = new FormData();
-       //data = canvas.toDataURL()
-     //formData.append('file', $( '#file' ),canvas.toDataURL());
-    var srcdata = canvas.toDataURL("image/png").replace(/^data:image\/(png|jpg);base64,/, '');
 
+    //https://davidwalsh.name/convert-image-data-uri-javascript
+    var srcdata = canvas.toDataURL("image/png").replace(/^data:image\/(png|jpg);base64,/, '');
 
 
    $.ajax({
       data : {
-         name : $('#nameInput').val(),
-         email : $('#emailInput').val(),
+         memeName : $('#memeNameInput').val(),
+         memeBaseName : $('#memeBaseNameInput1').val(),
          data : srcdata
 
       },
