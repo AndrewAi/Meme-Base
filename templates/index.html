@@ -28,27 +28,34 @@
 
 </head>
 <body>
+<div class ="container">
+<div class="jumbotron">
+
+    <h1>Create !</h1>
+    <br>
+    <br>
+
+    <input type="file" id="imageLoader" name="imageLoader"/>
+
+    <input type="text" name="Fname" id="words" placeholder="Top Text ">
+<button id="entertext">Enter</button>
+
+
+<canvas id="imageCanvas" width="300" height="300" style="border:3px solid"></canvas>
 
 
 
 
 
-
-
-<input type="file" id="imageLoader" name="imageLoader"/>
-<canvas id="imageCanvas" width="300" height="300" style="border:1px solid"></canvas>
-
-<
-
-<input type="text" name="Fname" id="words"/>
+<input type="text" name="Fname" id="words" placeholder="Bottom Text ">
 <button id="entertext">Enter</button>
 
 
 
+<br>
+<button class="btn btn-default" data-toggle="collapse" data-target="#form1">Upload to Meme Base</button>
 
-
-
-<form class="form-inline" id="form1">
+<form class="form-inline collapse" id="form1">
 
 	   <div class="form-group">
 	    <label class="sr-only" for="memeNameInput">Meme Name</label>
@@ -57,10 +64,11 @@
 
 	  <div class="form-group">
 	    <label class="sr-only" for="memeBaseNameInput">Meme Base Name</label>
-	    <input type="text" class="form-control" id="memeBaseNameInput" placeholder="Enter Meme Base Name">
+	    <input type="text" class="form-control" id="memeBaseNameInput" placeholder="Meme Base Name">
 	  </div>
 
-	  <button type="submit" class="btn btn-default">Upload Meme!</button>
+
+        <button type="submit" class="btn btn-lg btn-default">Upload Meme <span class="glyphicon glyphicon-open"></span></button>
 	</form>
 
 	<br>
@@ -79,6 +87,10 @@
 
 
 <a id="download" download="Meme.png">Download as image</a>
+
+
+    </div>
+    </div>
 
 
 </body>
