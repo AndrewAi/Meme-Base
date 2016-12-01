@@ -62,9 +62,17 @@ To create a meme click on the create a new meme button in the Welcome to Meme ba
 ### Architecture
 This web application runs in [Python 3](https://www.python.org) using the [Flask](http://flask.pocoo.org/) web micro-framework and uses Couchdb as a database.
 Technologies that were used are list below:
+
+
 Languages : Python, HTML, JavaScript(& Ajax), CSS
+
+
 Libraries : jQuery, Bootstrap
+
+
 Frameworks : Flask
+
+
 Databases : Couchdb
 
 Python 3 and Flask were requirements for the project, but Couchdb was selected by me
