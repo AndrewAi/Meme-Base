@@ -26,6 +26,7 @@
 
 <style>
 
+
     /* layout.css Style */
     .upload-drop-zone {
         height: 400px;
@@ -45,11 +46,6 @@
         left: 450px;
         bottom: 50px;
 
-    }
-
-    #finishButtons {
-        width: 36%;
-        margin: 0 auto;
     }
 
     /*http://bootsnipp.com/snippets/featured/group-buttons */
@@ -160,6 +156,10 @@
         padding-left: 15px
     }
 
+    #buttons {
+        position: relative;
+        left: 30%;
+    }
 
 </style>
 
@@ -182,7 +182,6 @@
             <br>
             <div class="upload-drop-zone" id="drop-zone">
                 <canvas id="imageCanvas" width="300" height="300" style="border:3px dashed"></canvas>
-
             </div>
 
 
@@ -197,13 +196,13 @@
                 <!-- BootSnipp http://bootsnipp.com/snippets/featured/group-buttons -->
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div id="buttons" class="col-md-12">
                             <br/>
                             <div class="ui-group-buttons">
                                 <a id="download" download="Meme.png">
-                                     <button type="button" id="download1" class="btn btn-primary btn-lg">
-                                    Download Meme
-                                </button>
+                                    <button type="button" id="download1" class="btn btn-primary btn-lg">
+                                        Download Meme
+                                    </button>
 
                                 </a>
 
@@ -241,7 +240,6 @@
                 <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
 
 
-
             </div>
 
 
@@ -264,19 +262,15 @@
         var reader = new FileReader();
         reader.onload = function (event) {
             var img = new Image();
-            //console.log("var img: " + img);
+            console.log("var img: " + img);
             img.onload = function () {
-                //canvas.width = img.width;
-                //canvas.height = img.height;
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                //var tf1 = document.getElementsByName('Fname')[0].value
 
-                ctx.font = "20px Georgia";
-                //ctx.fillText("Meme Text 1",70,50);
-                //ctx.fillText("Meme Text 2", 70, 240);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+
             }
             img.src = event.target.result;
-            //console.log("img src: " + img.src);
+            console.log("img src: " + img.src);
 
 
         }
@@ -290,11 +284,11 @@
     function download() {
 
         var dt = canvas.toDataURL();
-        //console.log("dt:", dt)
+        console.log("dt:", dt)
 
-        console.log("dt: " + dt)
+
         this.href = dt;
-        //console.log("this.href: " + this.href);
+        console.log("this.href: " + this.href);
     }
     document.getElementById('download').addEventListener('click', download, false);
 
@@ -336,6 +330,14 @@
 
 
     $('#entertext').click(function () {
+
+
+        ctx.font = '30pt Impact';
+        ctx.fillStyle = 'white';
+        ctx.lineWidth = 3;
+        // stroke color
+        ctx.strokeStyle = 'black';
+        ctx.strokeText($("#words").val(), 70, 50);
         ctx.fillText($("#words").val(), 70, 50);
     });
 

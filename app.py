@@ -6,55 +6,6 @@ app = Flask(__name__)
 
 database = "memebase"
 
-# r = requests.get('http://127.0.0.1:5984/_all_dbs')
-# print("r:", r)
-
-
-
-
-# BELOW CODE IS HOW TO POST A NON IMAGE DOCUMENT
-# j = {"_id": "FishStew"}
-# requests.post('http://127.0.0.1:5984/' + database + '/',data=None,json=j)
-# doc = requests.get('http://127.0.0.1:5984/' + database + '/')
-
-
-
-# http://127.0.0.1:5984/' + database + '/_design/design1/_view/_all_attachments?limit=20&reduce=false
-
-
-
-#c = requests.get('http://127.0.0.1:5984/' + database + '/_design/_design1/_view/_all_attachment_names?limit=20&reduce=false')
-#c = requests.get('http://127.0.0.1:5984/' + database + '/abcasa')
-#parsed_json = json.loads(c.text)
-#print("parsed_json: ", parsed_json)
-
-
-#e = parsed_json['_attachments']
-#pop = e.keys()
-
-#for key in pop:
- #   print('key: ', key)
-  #  imgName  = key
-
-
-
-
-
-#c = requests.get('http://127.0.0.1:5984/' + database + '/_design/_design1/_view/_all_attachment_names?limit=20&reduce=false')
-
-
-'''c = requests.get('http://127.0.0.1:5984/' + database + '/abcasa')
-parsed_json = json.loads(c.text)
-print("parsed_json: ", parsed_json)
-
-
-e = parsed_json['_attachments']
-pop = e.keys()
-
-for key in pop:
-    print('key: ', key)
-    imgName  = key
-    '''
 
 
 
@@ -62,114 +13,8 @@ for key in pop:
 
 
 
-#print('e: ', e.keys())
-#f = e[0]
-#print("f: ", f['key'])
-# print("c1: ", c.content['_id'])
-#img = "http://localhost:5984/' + database + '/5b5b558c24f1cc3213ccd3214100c7ac" + f['key']
-#print('name:', name)
-#print('imgName', imgName)
-#img = "http://127.0.0.1:5984/' + database + '/" + name + '/' + imgName
-#print('img', img)
-#print("img: ", img)
-
-
-
-#doc = "http://localhost:5984/' + database + '/2/aboutme.jpg"
-# print("doc: ", doc.content)
-# print("doc: ", doc)
-
-# j = {"irwin": "andyir"}
-# requests.post('http://127.0.0.1:5984/' + database + '/', data=None, json=j)
-
-
-
-
-
-# return jsonify({'name': "yes"})
-
-# return jsonify({'error': 'Missing data!'})
-#"VGhpcyBpcyBhIGJhc2U2NCBlbmNvZGVkIHRleHQ="
-
-
-'''
-        #return redirect(url_for('imgurl'))
-
-
-        docName = request.form['memeBaseNameInput']
-
-        docNameUrl = 'http://127.0.0.1:5984/' + database + '/' + docName
-        print('docNameUrl: ', docNameUrl)
-        c = requests.get('http://127.0.0.1:5984/' + database + '/' + docName)
-
-        if c:'''
-
-
-'''parsed_json = json.loads(c.text)
-            print("parsed_json: ", parsed_json)
-
-            e = parsed_json['_attachments']
-            pop = e.keys()
-
-            for key in pop:
-                print('key: ', key)
-                imgName = key
-
-            print('docName: ', docName)
-            print('imgName: ', imgName)
-            imgLocation = 'http://127.0.0.1:5984/' + database + '/' + docName + '/' + imgName
-            print('imgLocation: ', imgLocation)
-            return render_template('imgurl.html')'''
-
-
-
-
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
-
-
-@app.route('/process', methods=['POST'])
-def process():
-
-    if request.method == 'POST':
-
-        memeName = request.form['memeName']
-        memeBaseName = request.form['memeBaseName']
-        file = request.form['data']
-
-
-
-        if file:
-
-             print("file: ",file)
-             memeName += ".png"
-             print("memeName: ", memeName)
-             print("memeBaseName: ", memeBaseName)
-
-
-
-             jj = {
-                 "_id": memeBaseName,
-                 "_attachments":
-                     {
-                         memeName:
-                             {
-                                 "content_type": "image/png",
-                                 "data": file
-                             }
-                     }
-             }
-             requests.post('http://127.0.0.1:5984/' + database + '/', data=None, json=jj)
-             return jsonify({'name': "Meme Uploaded"})
-
-
-
-
-
-@app.route('/page3', methods=['GET', 'POST'])
-def page3():
-
     if request.method == 'POST':
 
         docName = request.form['memeBaseNameInput']
@@ -181,7 +26,7 @@ def page3():
         ca = requests.get(docNameUrl)
         print("ca: ", ca.text)
 
-        if ca :
+        if ca:
             parsed_json = json.loads(ca.text)
             print("parsed_json: ", parsed_json)
 
@@ -195,63 +40,73 @@ def page3():
             print("imgName: ", imgName)
             imglocation = 'http://127.0.0.1:5984/' + database + '/' + docName + '/' + imgName
 
-            return redirect(url_for('imgurl', imglocation = imglocation , imgTitle = imgName))
+            return redirect(url_for('imgurl', imglocation=imglocation, imgTitle=imgName))
 
 
 
+    return render_template('index.html')
 
 
-    return render_template('page3.html')
 
-
-@app.route('/page5', methods=['GET', 'POST'])
-def page5():
+@app.route('/tocreate', methods=['GET', 'POST'])
+def tocreate():
     if request.method == 'POST':
-        return redirect(url_for('index'))
+        return redirect(url_for('create'))
+
+
+@app.route('/create', methods=['GET', 'POST'])
+def create():
+    return render_template('create.html')
 
 
 
 
+@app.route('/process', methods=['POST'])
+def process():
+    if request.method == 'POST':
 
+        memeName = request.form['memeName']
+        memeBaseName = request.form['memeBaseName']
+        file = request.form['data']
 
+        if file:
+            print("file: ", file)
+            memeName += ".png"
+            print("memeName: ", memeName)
+            print("memeBaseName: ", memeBaseName)
 
+            jj = {
+                "_id": memeBaseName,
+                "_attachments":
+                    {
+                        memeName:
+                            {
+                                "content_type": "image/png",
+                                "data": file
+                            }
+                    }
+            }
+            uploadRequest =  requests.post('http://127.0.0.1:5984/' + database + '/', data=None, json=jj)
+
+            print("uploadRequest: ", uploadRequest.status_code)
+            if uploadRequest.status_code == requests.codes.ok:
+                return jsonify({'name': "Meme Uploaded"})
+
+            return jsonify({'error': "Failed to Upload Meme. Sorry :("})
 
 
 @app.route('/imgurl')
 def imgurl():
-    #http://stackoverflow.com/questions/17057191/flask-redirect-while-passing-arguments
+    # http://stackoverflow.com/questions/17057191/flask-redirect-while-passing-arguments
     img = request.args['imglocation']
     imgTitle = request.args['imgTitle']
 
     print("img: ", img)
 
-    return render_template('imgurl.html', img = img , imgTitle = imgTitle)
+    return render_template('imgurl.html', img=img, imgTitle=imgTitle)
 
 
 
-
-
-
-@app.route('/send', methods=['GET', 'POST'])
-def send():
-    if request.method == 'POST':
-        age = request.form['age']
-
-        return render_template('test.html', age=age)
-
-
-@app.route('/page')
-def page():
-    return ("Andrew Irwin")
-    # return render_template('index.html')
-
-
-@app.route('/test', methods=["GET", "POST"])
-def test():
-    return render_template('test.html')
-
-    if request.method == "POST":
-        print("posted")
 
 
 @app.errorhandler(404)
