@@ -1,15 +1,12 @@
-from flask import Flask, request, render_template, flash, url_for, redirect, jsonify
-import couchdb, json, requests, random
-from werkzeug.utils import secure_filename
+from flask import Flask, request, render_template, url_for, redirect, jsonify
+import json, requests
 
 app = Flask(__name__)
 
 database = "memebase"
 
-
-
-
-
+createdb = requests.put('http://127.0.0.1:5984/' + database)
+print("createdb", createdb)
 
 
 
@@ -42,9 +39,10 @@ def index():
 
             return redirect(url_for('imgurl', imglocation=imglocation, imgTitle=imgName))
 
-
-
     return render_template('index.html')
+
+
+
 
 
 
@@ -57,8 +55,6 @@ def tocreate():
 @app.route('/create', methods=['GET', 'POST'])
 def create():
     return render_template('create.html')
-
-
 
 
 @app.route('/process', methods=['POST'])
@@ -86,13 +82,21 @@ def process():
                             }
                     }
             }
-            uploadRequest =  requests.post('http://127.0.0.1:5984/' + database + '/', data=None, json=jj)
+            uploadRequest = requests.post('http://127.0.0.1:5984/' + database + '/', data=None, json=jj)
 
             print("uploadRequest: ", uploadRequest.status_code)
+
             if uploadRequest.status_code == requests.codes.ok:
                 return jsonify({'name': "Meme Uploaded"})
 
-            return jsonify({'error': "Failed to Upload Meme. Sorry :("})
+            elif uploadRequest.status_code == requests.codes.created:
+                return jsonify({'name': "Meme Uploaded"})
+
+            elif uploadRequest.status_code == requests.codes.accepted:
+                return jsonify({'name': "Meme Uploaded"})
+
+            else:
+                return jsonify({'error': "Failed to Upload Meme. Sorry :("})
 
 
 @app.route('/imgurl')
@@ -104,9 +108,6 @@ def imgurl():
     print("img: ", img)
 
     return render_template('imgurl.html', img=img, imgTitle=imgTitle)
-
-
-
 
 
 @app.errorhandler(404)
