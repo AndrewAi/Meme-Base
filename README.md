@@ -1,4 +1,4 @@
-# Basic Web Application Project Example
+#Meme Base Meme Generator College Project
 #### Data Representation and Querying Project 2016
 
 This repository contains code and information for a third-year undergraduate project for the module **Data Representation and Querying**.
