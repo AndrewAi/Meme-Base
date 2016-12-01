@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
+database = "memebase"
 
 # r = requests.get('http://127.0.0.1:5984/_all_dbs')
 # print("r:", r)
@@ -13,17 +14,17 @@ app = Flask(__name__)
 
 # BELOW CODE IS HOW TO POST A NON IMAGE DOCUMENT
 # j = {"_id": "FishStew"}
-# requests.post('http://127.0.0.1:5984/test2/',data=None,json=j)
-# doc = requests.get('http://127.0.0.1:5984/test2/')
+# requests.post('http://127.0.0.1:5984/' + database + '/',data=None,json=j)
+# doc = requests.get('http://127.0.0.1:5984/' + database + '/')
 
 
 
-# http://127.0.0.1:5984/test2/_design/design1/_view/_all_attachments?limit=20&reduce=false
+# http://127.0.0.1:5984/' + database + '/_design/design1/_view/_all_attachments?limit=20&reduce=false
 
 
 
-#c = requests.get('http://127.0.0.1:5984/test2/_design/_design1/_view/_all_attachment_names?limit=20&reduce=false')
-#c = requests.get('http://127.0.0.1:5984/test2/abcasa')
+#c = requests.get('http://127.0.0.1:5984/' + database + '/_design/_design1/_view/_all_attachment_names?limit=20&reduce=false')
+#c = requests.get('http://127.0.0.1:5984/' + database + '/abcasa')
 #parsed_json = json.loads(c.text)
 #print("parsed_json: ", parsed_json)
 
@@ -39,10 +40,10 @@ app = Flask(__name__)
 
 
 
-#c = requests.get('http://127.0.0.1:5984/test2/_design/_design1/_view/_all_attachment_names?limit=20&reduce=false')
+#c = requests.get('http://127.0.0.1:5984/' + database + '/_design/_design1/_view/_all_attachment_names?limit=20&reduce=false')
 
 
-'''c = requests.get('http://127.0.0.1:5984/test2/abcasa')
+'''c = requests.get('http://127.0.0.1:5984/' + database + '/abcasa')
 parsed_json = json.loads(c.text)
 print("parsed_json: ", parsed_json)
 
@@ -60,26 +61,26 @@ for key in pop:
 
 
 
-name = "abcasa"
+
 #print('e: ', e.keys())
 #f = e[0]
 #print("f: ", f['key'])
 # print("c1: ", c.content['_id'])
-#img = "http://localhost:5984/test2/5b5b558c24f1cc3213ccd3214100c7ac" + f['key']
+#img = "http://localhost:5984/' + database + '/5b5b558c24f1cc3213ccd3214100c7ac" + f['key']
 #print('name:', name)
 #print('imgName', imgName)
-#img = "http://127.0.0.1:5984/test2/" + name + '/' + imgName
+#img = "http://127.0.0.1:5984/' + database + '/" + name + '/' + imgName
 #print('img', img)
 #print("img: ", img)
 
 
 
-#doc = "http://localhost:5984/test2/2/aboutme.jpg"
+#doc = "http://localhost:5984/' + database + '/2/aboutme.jpg"
 # print("doc: ", doc.content)
 # print("doc: ", doc)
 
 # j = {"irwin": "andyir"}
-# requests.post('http://127.0.0.1:5984/test2/', data=None, json=j)
+# requests.post('http://127.0.0.1:5984/' + database + '/', data=None, json=j)
 
 
 
@@ -97,9 +98,9 @@ name = "abcasa"
 
         docName = request.form['memeBaseNameInput']
 
-        docNameUrl = 'http://127.0.0.1:5984/test2/' + docName
+        docNameUrl = 'http://127.0.0.1:5984/' + database + '/' + docName
         print('docNameUrl: ', docNameUrl)
-        c = requests.get('http://127.0.0.1:5984/test2/' + docName)
+        c = requests.get('http://127.0.0.1:5984/' + database + '/' + docName)
 
         if c:'''
 
@@ -116,7 +117,7 @@ name = "abcasa"
 
             print('docName: ', docName)
             print('imgName: ', imgName)
-            imgLocation = 'http://127.0.0.1:5984/test2/' + docName + '/' + imgName
+            imgLocation = 'http://127.0.0.1:5984/' + database + '/' + docName + '/' + imgName
             print('imgLocation: ', imgLocation)
             return render_template('imgurl.html')'''
 
@@ -159,7 +160,7 @@ def process():
                              }
                      }
              }
-             requests.post('http://127.0.0.1:5984/test2/', data=None, json=jj)
+             requests.post('http://127.0.0.1:5984/' + database + '/', data=None, json=jj)
              return jsonify({'name': "Meme Uploaded"})
 
 
@@ -174,7 +175,7 @@ def page3():
         docName = request.form['memeBaseNameInput']
         print("docName: ", docName)
 
-        docNameUrl = 'http://127.0.0.1:5984/test2/' + docName
+        docNameUrl = 'http://127.0.0.1:5984/' + database + '/' + docName
         print("docNameUrl: ", docNameUrl)
 
         ca = requests.get(docNameUrl)
@@ -192,9 +193,10 @@ def page3():
                 imgName = key
 
             print("imgName: ", imgName)
-            imglocation = 'http://127.0.0.1:5984/test2/' + docName + '/' + imgName
+            imglocation = 'http://127.0.0.1:5984/' + database + '/' + docName + '/' + imgName
 
-            return redirect(url_for('imgurl', imglocation = imglocation))
+            return redirect(url_for('imgurl', imglocation = imglocation , imgTitle = imgName))
+
 
 
 
@@ -219,10 +221,11 @@ def page5():
 def imgurl():
     #http://stackoverflow.com/questions/17057191/flask-redirect-while-passing-arguments
     img = request.args['imglocation']
+    imgTitle = request.args['imgTitle']
 
     print("img: ", img)
 
-    return render_template('imgurl.html', img = img)
+    return render_template('imgurl.html', img = img , imgTitle = imgTitle)
 
 
 
