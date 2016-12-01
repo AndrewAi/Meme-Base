@@ -7,6 +7,7 @@ My lecturer is [Ian McLoughlin](https://ianmcloughlin.github.io).
 
 ### Project Overview
 I have created a Single-Page Web Application (SPA) Called Meme Base.
+
 This application allows the user to either create a new meme or view existing memes
 that the user may have stored in the meme base database.
 A Meme is commonly known as an image which has a text overlay.
