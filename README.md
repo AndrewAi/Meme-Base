@@ -1,13 +1,20 @@
-#Meme Base Meme Generator College Project
+# Basic Flask/Python Web Application College Project.
 #### Data Representation and Querying Project 2016
 
-This repository contains code and information for a third-year undergraduate project for the module **Data Representation and Querying**.
+This repository contains code and information for my third-year undergraduate project for the module **Data Representation and Querying**.
 The module is taught to undergraduate students at [GMIT](http://www.gmit.ie) in the Department of Computer Science and Applied Physics.
-The lecturer is [Ian McLoughlin](https://ianmcloughlin.github.io).
+My lecturer is [Ian McLoughlin](https://ianmcloughlin.github.io).
 
 ### Project Overview
-We have created a Single-Page Web Application (SPA) that lets users track their To-Dos.
-This application was selected after some deliberation.
+I have created a Single-Page Web Application (SPA) Called Meme Base.
+This application allows the user to either create a new meme or view existing memes
+that the user may have stored in the meme base database.
+A Meme is commonly known as an image which has a text overlay.
+Meme base allows the user to upload an image and overlay text on it.
+The user then has the option ot donwload the meme or upload it to the meme base data base.
+If the user decides to upload the meme.
+They can then view it by typing in their meme base name and their memes will be retrieved by the database,
+and displayed on the web page.
 Initially, we considered three different applications:
 
 1. A [ToDoListMe](http://todolistme.net/) alternative.
