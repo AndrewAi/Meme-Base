@@ -71,9 +71,10 @@ def process():
             print("memeName: ", memeName)
             print("memeBaseName: ", memeBaseName)
 
-            jj = {
+            atachmentJson = {
                 "_id": memeBaseName,
-                "_attachments":
+                "_rev:": "11-420aa25bcd9e6578f68fdd8f1ff038a7",
+                        "_attachments":
                     {
                         memeName:
                             {
@@ -82,7 +83,12 @@ def process():
                             }
                     }
             }
-            uploadRequest = requests.post('http://127.0.0.1:5984/' + database + '/', data=None, json=jj)
+
+
+
+            uploadRequest = requests.put('http://127.0.0.1:5984/' + database + '/',data=None,json=atachmentJson)
+
+
 
             print("uploadRequest: ", uploadRequest.status_code)
 
